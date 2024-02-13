@@ -1,6 +1,7 @@
 package input.parser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -10,6 +11,7 @@ import org.json.JSONTokener;
 
 import input.components.ComponentNode;
 import input.components.*;
+import input.components.point.NotInDatabaseException;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
@@ -29,7 +31,7 @@ public class JSONParser
 		throw new ParseException("Parse error: " + message);
 	}
 
-	public ComponentNode parse(String str) throws ParseException
+	public ComponentNode parse(String str) throws ParseException, JSONException, NotInDatabaseException
 	{
 		// Parsing is accomplished via the JSONTokenizer class.
 		JSONTokener tokenizer = new JSONTokener(str);
@@ -39,52 +41,25 @@ public class JSONParser
 		PointNodeDatabase points = new PointNodeDatabase();
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		
-		//ArrayList<PointNode> pointlist = JSONroot.getJSONArray("Points")
-		
-		for(PointNode point:JSONroot.getJSONArray("Points")) {
-			String name = JSONroot.getString("name");
-			double x = JSONroot.getInt("x");
-			double y = JSONroot.getInt("y");
+		JSONArray pointlist = JSONroot.getJSONArray("Points");
+		PointNode prevNode = null;
+		for(int i = 0; i < pointlist.length(); i++) {
+			String name = pointlist.getJSONObject(i).getString("name");
+			double x = pointlist.getJSONObject(i).getInt("x");
+			double y = pointlist.getJSONObject(i).getInt("y");
 			
-			points.put(new PointNode(name, x, y));
-		}
-		
-		for(Object Segment:JSONroot.getJSONArray("Segments")) {
-			segments.addUndirectedEdge(new SegmentNode());
-		}
-		
-		
-		
-		
-		/*while(tokenizer.more()) {
-			String next = tokenizer.nextString('"');
-
-			if(next.equals("Description")) {
-				description = tokenizer.nextString('"');
-			}
-
-			if(next.equals("Points")) {
-				String name = "";
-				double x = 0;
-				double y = 0;
-
-				if(tokenizer.nextString('"').equals("name")) {
-					name = tokenizer.nextString('"');
-				}
-				if(tokenizer.nextString('"').equals("x")){
-					x = (double) tokenizer.nextValue();//test to make sure this does not get the ":"
-				}
-				if(tokenizer.nextString('"').equals("y")){
-					y = (double) tokenizer.nextValue();// test to make sure this does not get the ":"
-				}
-				
-				points.put(new PointNode(name, x, y));
-			}
+			PointNode tempNode = new PointNode(name, x, y);
+			points.put(tempNode);
 			
-			if(next.equals("Segments")) {
-				
-			}
-		}*/
+			if(prevNode != null) {
+				segments.addUndirectedEdge(tempNode, prevNode);
+			}else {
+				prevNode = tempNode;
+			}	
+		}
+
+		return new FigureNode(description, points, segments);
+
 		// TODO: Build the whole AST, check for return class object, and return the root
 	}
 
