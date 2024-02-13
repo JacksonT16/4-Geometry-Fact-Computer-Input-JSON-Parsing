@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import input.components.ComponentNode;
 import input.components.*;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
@@ -33,7 +34,18 @@ public class JSONParser
 		// Parsing is accomplished via the JSONTokenizer class.
 		JSONTokener tokenizer = new JSONTokener(str);
 		JSONObject  JSONroot = (JSONObject)tokenizer.nextValue();
-
+		
+		String description = "";
+		PointNodeDatabase points = new PointNodeDatabase();
+		SegmentNodeDatabase segments = new SegmentNodeDatabase();
+		
+		while(tokenizer.more()) {
+			String next = tokenizer.nextString();
+			
+			if(next == "Description") {
+				
+			}
+		}
         // TODO: Build the whole AST, check for return class object, and return the root
 	}
 
