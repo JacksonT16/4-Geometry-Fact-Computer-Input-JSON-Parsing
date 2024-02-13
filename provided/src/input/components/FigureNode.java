@@ -30,8 +30,7 @@ public class FigureNode implements ComponentNode
 	}
 
 	@Override
-	public void unparse(StringBuilder sb, int level)
-	{
-        // TODO
+	public void unparse(StringBuilder sb, int level) {
+        
     }
 }

@@ -100,4 +100,9 @@ public class PointNodeDatabase {
 	public PointNode getPoint(double x, double y) throws NotInDatabaseException {
 		return getPoint(new PointNode(x, y));
 	}
+	
+	@Override
+	public void unparse(StringBuilder sb, int level) {
+        
+    }
 }

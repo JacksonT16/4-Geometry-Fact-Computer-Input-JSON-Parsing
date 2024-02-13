@@ -114,4 +114,9 @@ public class SegmentNodeDatabase {
 			_adjLists.put(Key, new LinkedHashSet<PointNode>(Arrays.asList(value)));
 		}
 	}
+	
+	@Override
+	public void unparse(StringBuilder sb, int level) {
+        
+    }
 }
