@@ -103,6 +103,8 @@ public class PointNodeDatabase {
 	
 	@Override
 	public void unparse(StringBuilder sb, int level) {
-        
-    }
+	    for (PointNode point : _points) {
+	        point.unparse(sb, level);
+	    }
+	}
 }

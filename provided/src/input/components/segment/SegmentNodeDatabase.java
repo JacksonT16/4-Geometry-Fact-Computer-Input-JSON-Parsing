@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import LinkedList.Node;
 import input.components.point.PointNode;
 
 /**
@@ -117,6 +119,10 @@ public class SegmentNodeDatabase {
 	
 	@Override
 	public void unparse(StringBuilder sb, int level) {
-        
-    }
+	    List<SegmentNode> uniqueSegments = asUniqueSegmentList();
+
+	    for (SegmentNode segment : uniqueSegments) {
+	        segment.unparse(sb, level);
+	    }
+	}
 }

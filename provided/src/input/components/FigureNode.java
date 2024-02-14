@@ -30,7 +30,22 @@ public class FigureNode implements ComponentNode
 	}
 
 	@Override
-	public void unparse(StringBuilder sb, int level) {
-        
+    public void unparse(StringBuilder sb, int level) {
+        appendIndented(sb, level, "Description : \"" + _description + "\"");
+
+        appendIndented(sb, level, "Points:");
+        _points.unparse(sb, level + 1);
+
+        appendIndented(sb, level, "Segments:");
+        _segments.unparse(sb, level + 1);
     }
+
+    private void appendIndented(StringBuilder sb, int level, String content) {
+        for (int i = 0; i < level; i++) {
+            sb.append("    ");
+        }
+        sb.append(content);
+        sb.append("\n");
+    }
+}
 }

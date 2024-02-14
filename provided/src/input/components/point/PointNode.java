@@ -77,7 +77,12 @@ public class PointNode
 	}
     
     @Override
-	public void unparse(StringBuilder sb, int level) {
-        
+    public void unparse(StringBuilder sb, int level) {
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+
+        unparse(sb, level);
+        sb.append("\n");
     }
 }
