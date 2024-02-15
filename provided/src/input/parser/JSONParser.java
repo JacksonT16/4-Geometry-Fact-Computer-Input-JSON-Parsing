@@ -13,7 +13,10 @@ import input.components.segment.SegmentNodeDatabase;
 import input.exception.ParseException;
 
 /**
- * 
+ * This class will read a JSON data file and create an abstract syntax tree structure 
+	for a geometry figure in the form of a figureNode
+ * @author Jackson Tedesco, Case Riddle
+ * @date 2/15/2024
  */
 public class JSONParser
 {
@@ -30,7 +33,16 @@ public class JSONParser
 	{
 		throw new ParseException("Parse error: " + message);// where to use this
 	}
-
+	
+	/**
+	 * creates an FigureNode out of the inputed JSON file
+	 * @param str: JSON file file in the form of a string
+	 * @return abstract syntax tree structure 
+		for a geometry figure in the form of a figureNode
+	 * @throws ParseException
+	 * @throws JSONException
+	 * @throws NotInDatabaseException
+	 */
 	public ComponentNode parse(String str) throws ParseException, JSONException, NotInDatabaseException
 	{
 		// Parsing is accomplished via the JSONTokenizer class.
@@ -44,25 +56,23 @@ public class JSONParser
 
 		String description = getDescription(JSONroot);
 		PointNodeDatabase points = getPoints(JSONroot);
-		SegmentNodeDatabase segments = getSegmentNodeDatabase(JSONroot.getJSONArray("Segments")
-				, points);
+		SegmentNodeDatabase segments = getSegmentNodeDatabase(JSONroot.getJSONArray("Segments"), points);
 
 		_astRoot = new FigureNode(description, points, segments);
 		return _astRoot;
 	}
 
 	/**
-	 * @param str
-	 * @param JSONroot
-	 * @return
+	 * @param JSONroot: The JSONObject
+	 * @return Description from inputed JSON object
 	 */
 	private String getDescription(JSONObject JSONroot) {
 		return  JSONroot.getString("Description");
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @param JSONroot: The JSONObject
+	 * @return PointNodeDatabase from the JSONObject
 	 */
 	private PointNodeDatabase getPoints(JSONObject JSONroot) {
 		PointNodeDatabase points = new PointNodeDatabase();
@@ -76,9 +86,8 @@ public class JSONParser
 	}
 
 	/**
-	 * 
-	 * @param node
-	 * @return
+	 * @param node: JSONObject for a singular node
+	 * @return a completed point node from the JSONObject data
 	 */
 	private PointNode getPoint(JSONObject node) {
 		String name = node.getString("name");
@@ -89,17 +98,19 @@ public class JSONParser
 	}
 
 	/**
+	 * @param segmentList: JSONOArray of the overall segments list
+	 * @param points: PointNodeDatabase that stores the points that will make up the segments
+	 * @return a completed SegmentNodeDatabase from the JSONObject data
 	 * @throws NotInDatabaseException 
 	 * @throws JSONException 
 	 * @throws NullPointerException 
-	 * 
 	 */
-	private SegmentNodeDatabase getSegmentNodeDatabase(JSONArray segmentlist, PointNodeDatabase points) 
+	private SegmentNodeDatabase getSegmentNodeDatabase(JSONArray segmentList, PointNodeDatabase points) 
 			throws NullPointerException, JSONException, NotInDatabaseException {
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		
-		for(int i = 0; i < segmentlist.length(); i++) {
-			JSONObject subList = segmentlist.getJSONObject(i);
+		for(int i = 0; i < segmentList.length(); i++) {
+			JSONObject subList = segmentList.getJSONObject(i);
 			
 			getSegment(subList, segments, subList.toString().substring(2, 3), points);
 		}
@@ -108,8 +119,12 @@ public class JSONParser
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Creates segments from the PointNode JSONArray from the JSONObject segment and adds them to 
+	 * inputed SegmentNodeDatabase.
+	 * @param segment: Object that value stores the JSONArray of points
+	 * @param output: The SegmentNodeDatabase that the created segments are added to0
+	 * @param headNode: The string version of the key of the object. Used as one point on all segments
+	 * @param points: PointNodeDatabase that stores the points that will make up the segment
 	 * @throws NotInDatabaseException 
 	 * @throws JSONException 
 	 * @throws NullPointerException 
