@@ -1,9 +1,13 @@
-package input.components.point;
+package input.Tree;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import input.components.point.NotInDatabaseException;
+import input.components.point.PointNode;
+import input.components.point.PointNodeDatabase;
 
 /**
  * 
@@ -15,10 +19,8 @@ import org.junit.jupiter.api.Test;
 class PointNodeDatabaseTest {
 	
 	@Test
-	void putAndContainsTest() throws NotInDatabase {
+	void putAndContainsTest() throws NotInDatabaseException {
 		PointNodeDatabase data = new PointNodeDatabase();
-		
-		
 		
 		assertFalse(data.contains(new PointNode(5, 5 )));
 		PointNode node = new PointNode("A", 2, 5);
@@ -36,7 +38,7 @@ class PointNodeDatabaseTest {
 	}
 	
 	@Test
-	void getNameTest() throws NotInDatabase {
+	void getNameTest() throws NotInDatabaseException {
 		PointNodeDatabase data = new PointNodeDatabase();
 		PointNode node = new PointNode("A", 2, 5);
 		PointNode MyPointNode = new PointNode(3, 5);
@@ -49,25 +51,53 @@ class PointNodeDatabaseTest {
 		assertEquals("A", data.getName(2.0, 5.0));
 		assertEquals("__UNNAMED", data.getName(3.0, 5.0));
 		
-		assertThrows(NotInDatabase.class, () -> {data.getName(15.0, 40.0);});
-		assertThrows(NotInDatabase.class, () -> {data.getName(new PointNode(15, 40));});
+		assertThrows(NotInDatabaseException.class, () -> {data.getName(15.0, 40.0);});
+		assertThrows(NotInDatabaseException.class, () -> {data.getName(new PointNode(15, 40));});
 	}
 	
 	@Test
-	void getPointTest() throws NotInDatabase {
+	void getPointTest() throws NotInDatabaseException {
 		PointNodeDatabase data = new PointNodeDatabase();
 		PointNode node = new PointNode("A", 2, 5);
 		data.put(node);
 		
 		assertEquals(node, data.getPoint(2.0, 5.0));
 		assertEquals(node, data.getPoint(node));
-		assertThrows(NotInDatabase.class, () -> {data.getPoint(3.0, 9.0);});
+		assertThrows(NotInDatabaseException.class, () -> {data.getPoint(3.0, 9.0);});
 		PointNode node2 = new PointNode("B", 6, 5);
-		assertThrows(NotInDatabase.class, () -> {data.getPoint(node2);});
+		assertThrows(NotInDatabaseException.class, () -> {data.getPoint(node2);});
 	}
 	
 	@Test
 	void unparseTest() {
 		
+	}
+	
+	@Test
+	void getPointFromNameTest() throws NotInDatabaseException {
+		PointNodeDatabase data = new PointNodeDatabase();
+		assertThrows(NotInDatabaseException.class, () -> {data.getPoint("F");});
+		
+		PointNode node1 = new PointNode("A", 2, 5);
+		PointNode node2 = new PointNode("B", 4, 5);
+		PointNode node3 = new PointNode("C", 2, 9); 
+		PointNode node4 = new PointNode("D", 5, 9);
+		PointNode node5 = new PointNode("D", 8, 12);
+		
+		data.put(node3);
+		data.put(node2);
+		data.put(node4);
+		data.put(node1);
+		data.put(node5);
+		
+		assertEquals(node1, data.getPoint("A"));
+		assertEquals(node2, data.getPoint("B"));
+		assertEquals(node3, data.getPoint("C"));
+		assertEquals(node4, data.getPoint("D"));
+		
+		assertEquals(5, data.getPoint("D").getX());
+		assertEquals(9, data.getPoint("D").getY());
+		
+		assertThrows(NotInDatabaseException.class, () -> {data.getPoint("F");});
 	}
 }

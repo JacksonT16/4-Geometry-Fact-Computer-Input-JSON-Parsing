@@ -101,7 +101,20 @@ public class PointNodeDatabase {
 		return getPoint(new PointNode(x, y));
 	}
 	
-	@Override
+	/**
+	 * Finds the element in _point and returns if it equals the intended element.
+	 * @param name of node
+	 * @return the node of the inputed name 
+	 * @throws NotInDatabaseException 
+	 */
+	public PointNode getPoint(String name) throws NotInDatabaseException {
+		for (PointNode storedPoint : _points) {
+			if (storedPoint.getName().equals(name)) return storedPoint;
+		}
+		
+		throw new NotInDatabaseException();
+	}
+	
 	public void unparse(StringBuilder sb, int level) {
 	    for (PointNode point : _points) {
 	        point.unparse(sb, level);
