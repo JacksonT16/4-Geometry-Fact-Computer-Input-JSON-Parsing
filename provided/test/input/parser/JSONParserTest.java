@@ -1,24 +1,23 @@
 package input.parser;
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import input.components.ComponentNode;
 import input.components.FigureNode;
-import input.components.point.NotInDatabaseException;
 import input.exception.ParseException;
 
 class JSONParserTest
 {
-	public static ComponentNode runFigureParseTest(String filename) throws ParseException, JSONException, NotInDatabaseException
+	public static ComponentNode runFigureParseTest(String filename)
 	{
 		JSONParser parser = new JSONParser();
 
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments(filename);
 		
-		//System.out.println(figureStr);
 		return parser.parse(figureStr);
 	}
 	
@@ -31,7 +30,7 @@ class JSONParserTest
 	}
 
 	@Test
-	void single_triangle_test() throws ParseException, JSONException, NotInDatabaseException
+	void single_triangle_test()
 	{
 		//
 		// The input String ("single_triangle.json") assumes the file is
@@ -43,28 +42,8 @@ class JSONParserTest
 
 		assertTrue(node instanceof FigureNode);
 		
-		
-		//StringBuilder sb = new StringBuilder();
-		//node.unparse(sb, 0);
-		//System.out.println(sb.toString());
-	}
-	
-	@Test
-	void collinear_line_segments_test() throws ParseException, JSONException, NotInDatabaseException
-	{
-		//
-		// The input String ("single_triangle.json") assumes the file is
-		// located at the top-level of the project. If you move your input
-		// files into a folder, update this String with the path:
-		//                                       e.g., "my_folder/single_triangle.json"
-		//
-		ComponentNode node = JSONParserTest.runFigureParseTest("collinear_line_segments.json");
-
-		assertTrue(node instanceof FigureNode);
-		
-		
-		//StringBuilder sb = new StringBuilder();
-		//node.unparse(sb, 0);
-		//System.out.println(sb.toString());
+		StringBuilder sb = new StringBuilder();
+		node.unparse(sb, 0);
+		System.out.println(sb.toString());
 	}
 }

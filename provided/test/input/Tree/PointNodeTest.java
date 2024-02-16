@@ -1,12 +1,10 @@
-package input.Tree;
+package input.components.point;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-
-import input.components.point.PointNode;
 
 /**
  * Test pointNode
