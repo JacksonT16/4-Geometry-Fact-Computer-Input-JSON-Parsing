@@ -60,8 +60,8 @@ public class JSONParser
 		}
 		
 		JSONTokener tokenizer = new JSONTokener(str);
-		JSONObject  JSONroot = (JSONObject)tokenizer.nextValue();
-		JSONroot = JSONroot.getJSONObject("Figure");
+		JSONObject  JSONroot = ((JSONObject)tokenizer.nextValue()).getJSONObject("Figure");//?
+		//JSONroot = JSONroot.getJSONObject("Figure");
 
 		String description = getDescription(JSONroot);
 		PointNodeDatabase points = getPoints(JSONroot);
