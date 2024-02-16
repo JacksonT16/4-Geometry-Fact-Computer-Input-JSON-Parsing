@@ -164,10 +164,24 @@ class SegmentNodeDatabaseTest
 
 		//System.out.print(db.asUniqueSegmentList());
 	}
-	
-	@Test
-	void unparse() {
-		
-	}
 
+	@Test
+	void testUnparse() {
+		SegmentNode s1 = new SegmentNode(new PointNode(1.0, 2.0), new PointNode(3.0, 4.0));
+		SegmentNode s2 = new SegmentNode(new PointNode(5.0, 6.0), new PointNode(7.0, 8.0));
+
+		List<PointNode> points1 = Arrays.asList(new PointNode(1.0, 2.0), new PointNode(3.0, 4.0));
+		List<PointNode> points2 = Arrays.asList(new PointNode(5.0, 6.0), new PointNode(7.0, 8.0));
+		
+		SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
+		segmentDatabase.addAdjacencyList(new PointNode(1.0, 2.0), points1);
+		segmentDatabase.addAdjacencyList(new PointNode(5.0, 6.0), points2);
+
+		StringBuilder sb = new StringBuilder();
+		segmentDatabase.unparse(sb, 0);
+
+		String expectedOutput = "(1.0, 2.0) - (3.0, 4.0)\n" +
+				"(5.0, 6.0) - (7.0, 8.0)\n";
+
+	}
 }
