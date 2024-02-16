@@ -45,7 +45,6 @@ public class FigureNode implements ComponentNode
             sb.append("    ");
         }
         sb.append(content);
-        sb.append("\n");
     }
 
 }
