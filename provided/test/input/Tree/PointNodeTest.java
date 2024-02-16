@@ -1,10 +1,11 @@
 package input.Tree;
 import input.components.point.PointNode;
-package input.components.point;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,22 @@ class PointNodeTest {
 	}
 	
 	@Test
-	void unparseTest() {
-		
+	void testUnparse() {
+		List<PointNode> points = new ArrayList<>();
+		points.add(new PointNode("Point1", 1.0, 2.0));
+		points.add(new PointNode("Point2", 3.0, 4.0));
+		points.add(new PointNode("Point3", 5.0, 6.0));
+		PointNodeDatabase database = new PointNodeDatabase(points);
+
+		StringBuilder sb = new StringBuilder();
+
+		database.unparse(sb, 0);
+
+		String expectedOutput = "Point1: (1.0, 2.0)" +
+				"Point2: (3.0, 4.0)" +
+				"Point3: (5.0, 6.0)";
+
+		assertEquals(expectedOutput, sb.toString());
 	}
+
 }

@@ -42,7 +42,7 @@ public class FigureNode implements ComponentNode
 
     private void appendIndented(StringBuilder sb, int level, String content) {
         for (int i = 0; i < level; i++) {
-            sb.append("    ");
+            sb.append("   ");
         }
         sb.append(content);
     }

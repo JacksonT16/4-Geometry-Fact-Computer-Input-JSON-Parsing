@@ -120,9 +120,15 @@ public class SegmentNodeDatabase {
 	@Override
 	public void unparse(StringBuilder sb, int level) {
 	    List<SegmentNode> uniqueSegments = asUniqueSegmentList();
-
-	    for (SegmentNode segment : uniqueSegments) {
-	        segment.unparse(sb, level);
+	    SegmentNode s1 = new SegmentNode<>(Arrays.asList(uniqueSegments));
+	    
+	    for (SegmentNode s2 : s1) {
+	    	sb.append(s2 +": ");
+	    	for(PointNode value: _adjLists.get(s2)) {
+	    		sb.append(value + " ");
+	    	}
+	    	sb.append("\n");
+	      //  segment.unparse(sb, level);
 	    }
 	}
 }
