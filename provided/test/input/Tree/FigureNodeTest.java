@@ -1,10 +1,9 @@
-@ -1,20 +1,9 @@
-
+package input.Tree;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
 
-package input.Tree;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
@@ -18,7 +17,7 @@ import input.components.segment.SegmentNodeDatabase;
 
 class FigureNodeTest {
 
-	@Test
+	/*@Test
 	class FigureNodeTest {
 
 		SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
@@ -45,7 +44,7 @@ class FigureNodeTest {
 		FigureNode node = new FigureNode(s, point, segment);
 		StringBuilder st = new StringBuilder();
 		System.out.(node.unparse(st, 0));*/
-	}
+	//}
 
 	@Test
     void unparseTest() {
@@ -61,7 +60,7 @@ class FigureNodeTest {
         StringBuilder result = new StringBuilder();
 
         figure.unparse(result, 0);
-        
+        System.out.println(result);
         String expectedOutput = "Description : \"Sample Figure\"\n" +
                 "Points:\n" +
                 "    Point(A)(1.0, 2.0)\n" +
