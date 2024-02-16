@@ -89,6 +89,10 @@ public class PointNodeDatabase {
 		
 		throw new NotInDatabaseException();
 	}
+	
+	public PointNode getPoint(double x, double y) throws NotInDatabaseException {
+		return getPoint(new PointNode(x, y));
+	}
 
 	/**
 	 * Finds the element in _point and returns if it equals the intended element.
