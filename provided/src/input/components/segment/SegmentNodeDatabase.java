@@ -123,9 +123,9 @@ public class SegmentNodeDatabase {
 		Set<PointNode> keys = _adjLists.keySet();
 
 		for(PointNode key: keys) {
-			sb.append(key +": ");
+			sb.append(key.getName() +": ");
 			for(PointNode value: _adjLists.get(key)) {
-				sb.append(value + " ");
+				sb.append(value.getName() + " ");
 			}
 			sb.append("\n");
 		}

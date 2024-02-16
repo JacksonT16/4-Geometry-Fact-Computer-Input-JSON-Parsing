@@ -1,7 +1,9 @@
+package input.Tree;
+
 import input.components.segment.SegmentNode;
 import input.components.segment.SegmentNodeDatabase;
 
-package input.components.segment;
+//package input.components.segment;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
@@ -11,7 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import input.components.point.PointNode;
-package.input.tree;
+//package.input.tree;
 /**
  * 
  */
@@ -167,18 +169,25 @@ class SegmentNodeDatabaseTest
 
 	@Test
 	void testUnparse() {
-		SegmentNode s1 = new SegmentNode(new PointNode(1.0, 2.0), new PointNode(3.0, 4.0));
-		SegmentNode s2 = new SegmentNode(new PointNode(5.0, 6.0), new PointNode(7.0, 8.0));
+		/*SegmentNode s1 = new SegmentNode(new PointNode("a", 1.0, 2.0), new PointNode("b", 3.0, 4.0));
+		SegmentNode s2 = new SegmentNode(new PointNode("c", 5.0, 6.0), new PointNode(""7.0, 8.0));*/
 
-		List<PointNode> points1 = Arrays.asList(new PointNode(1.0, 2.0), new PointNode(3.0, 4.0));
-		List<PointNode> points2 = Arrays.asList(new PointNode(5.0, 6.0), new PointNode(7.0, 8.0));
+		/*List<PointNode> points1 = Arrays.asList(new PointNode(1.0, 2.0), new PointNode(3.0, 4.0));
+		List<PointNode> points2 = Arrays.asList(new PointNode(5.0, 6.0), new PointNode(7.0, 8.0));*/
+		
+		PointNode node1 = new PointNode("a" ,1.0, 2.0);
+		PointNode node2 = new PointNode("b" ,5.0, 2.0);
+		PointNode node3 = new PointNode("c" ,2.0, 6.0);
 		
 		SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
-		segmentDatabase.addAdjacencyList(new PointNode(1.0, 2.0), points1);
-		segmentDatabase.addAdjacencyList(new PointNode(5.0, 6.0), points2);
+		segmentDatabase.addUndirectedEdge(node1, node2);
+		segmentDatabase.addUndirectedEdge(node2, node3);
+		segmentDatabase.addUndirectedEdge(node3, node1);
 
 		StringBuilder sb = new StringBuilder();
 		segmentDatabase.unparse(sb, 0);
+		
+		System.out.println(sb);
 
 		String expectedOutput = "(1.0, 2.0) - (3.0, 4.0)\n" +
 				"(5.0, 6.0) - (7.0, 8.0)\n";
