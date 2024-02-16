@@ -84,10 +84,11 @@ class PointNodeDatabaseTest {
 		StringBuilder sb = new StringBuilder();
 
 		database.unparse(sb, 0);
-
-		String expectedOutput = "Point1: (1.0, 2.0)" +
-				"Point2: (3.0, 4.0)" +
-				"Point3: (5.0, 6.0)";
+		
+		System.out.println(sb);;
+		String expectedOutput = "Point1: (1.0, 2.0)\n" +
+				"Point2: (3.0, 4.0)\n" +
+				"Point3: (5.0, 6.0)\n";
 
 		assertEquals(expectedOutput, sb.toString());
 	}
