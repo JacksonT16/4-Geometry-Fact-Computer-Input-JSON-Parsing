@@ -29,7 +29,7 @@ public class PointNode
 	 */
 	public PointNode(double x, double y)
 	{
-			this(ANONYMOUS, x,y);
+		this(ANONYMOUS, x,y);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class PointNode
 	{
 		return Double.valueOf(_x).hashCode() + Double.valueOf(_y).hashCode();
 	}
-	
+
 	/**
 	 * @return True if objects are equal; False otherwise
 	 * @param obj: point node being compared 
@@ -59,30 +59,28 @@ public class PointNode
 	public boolean equals(Object obj)
 	{
 		if(!(obj instanceof PointNode)) return false;
-		
+
 		if(this == obj) return true;
-		
+
 		PointNode node = (PointNode) obj;
 		return MathUtilities.doubleEquals(this.getX(), node.getX())&&
-			   MathUtilities.doubleEquals(this.getY(), node.getY());
+				MathUtilities.doubleEquals(this.getY(), node.getY());
 	}
-	
+
 	/**
 	 * @return String version of node
 	 */
-    @Override
-    public String toString()
-    {
-		 return _name + "(" + _x + ", " + _y + ")";
+	@Override
+	public String toString()
+	{
+		return _name + "(" + _x + ", " + _y + ")";
 	}
-    
-    @Override
-    public void unparse(StringBuilder sb, int level) {
-        for (int i = 0; i < level; i++) {
-            sb.append("  ");
-        }
 
-        unparse(sb, level);
-        sb.append("\n");
-    }
+	@Override
+	public void unparse(StringBuilder sb, int level) {
+		sb.append("Point(" + _name + ")(" + _x + "," + _y + ")\n");
+	}
+
+	//unparse(sb, level);
+
 }
