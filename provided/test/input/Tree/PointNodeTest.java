@@ -1,3 +1,5 @@
+package input.Tree;
+import input.components.point.PointNode;
 package input.components.point;
 
 import static org.junit.jupiter.api.Assertions.*;

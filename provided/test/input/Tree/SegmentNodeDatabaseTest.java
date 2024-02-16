@@ -1,3 +1,6 @@
+import input.components.segment.SegmentNode;
+import input.components.segment.SegmentNodeDatabase;
+
 package input.components.segment;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import input.components.point.PointNode;
-
+package.input.tree;
 /**
  * 
  */

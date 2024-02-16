@@ -97,8 +97,12 @@ public class PointNodeDatabase {
 	 * @return the PointNode
 	 * @throws NotInDatabase 
 	 **/
-	public PointNode getPoint(double x, double y) throws NotInDatabaseException {
-		return getPoint(new PointNode(x, y));
+	public PointNode getPoint(String name) throws NotInDatabaseException {
+		for (PointNode storedPoint : _points) {
+			if (storedPoint.getName().equals(name)) return storedPoint;
+		}
+		
+		throw new NotInDatabaseException();
 	}
 	
 	@Override
