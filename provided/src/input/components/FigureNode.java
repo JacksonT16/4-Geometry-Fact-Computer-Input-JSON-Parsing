@@ -1,5 +1,4 @@
 package input.components;
-
 import java.util.Set;
 
 import input.components.point.PointNode;
@@ -31,20 +30,26 @@ public class FigureNode implements ComponentNode
 
 	@Override
     public void unparse(StringBuilder sb, int level) {
-        appendIndented(sb, level, "Description : \"" + _description + "\"");
-
+		appendIndented(sb, level, "Figure");
+		++level;
+		appendIndented(sb, level, "Description : \"" + _description + "\"");
+		
         appendIndented(sb, level, "Points:");
+        appendIndented(sb, level, "{");
         _points.unparse(sb, level + 1);
+        appendIndented(sb, level, "}");
 
         appendIndented(sb, level, "Segments:");
+        appendIndented(sb, level, "{");
         _segments.unparse(sb, level + 1);
+        appendIndented(sb, level, "}");
+        appendIndented(sb, level - 1, "}");
     }
 
     private void appendIndented(StringBuilder sb, int level, String content) {
         for (int i = 0; i < level; i++) {
-            sb.append("   ");
+            sb.append("\t");
         }
-        sb.append(content);
+        sb.append(content + "\n");
     }
-
 }

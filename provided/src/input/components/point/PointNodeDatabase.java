@@ -3,15 +3,15 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import input.components.ComponentNode;
+
 /**
  * Methods that facilitate the PointNode.
- * @date 1/23/2024
- * @author Case Riddle
- * @author Tony Song
- * @author Jackson Tedesco
+ * @date 2/20/2024
+ * @author Case Riddle, Jackson Tedesco
  **/
 
-public class PointNodeDatabase {
+public class PointNodeDatabase implements ComponentNode{
 	private Set<PointNode> _points;
 
 	public PointNodeDatabase() {
@@ -109,7 +109,10 @@ public class PointNodeDatabase {
 		throw new NotInDatabaseException();
 	}
 	
-	
+	/**
+	 * 
+	 */
+	@Override
 	public void unparse(StringBuilder sb, int level) {
 	    for (PointNode point : _points) {
 	        point.unparse(sb, level);

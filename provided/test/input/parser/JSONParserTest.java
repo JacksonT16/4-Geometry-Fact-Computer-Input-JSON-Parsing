@@ -1,6 +1,6 @@
+package input.parser;
 import org.json.JSONException;
 import input.components.point.NotInDatabaseException;
-package input.parser;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +22,7 @@ class JSONParserTest
 		//System.out.println(figureStr);
 		return parser.parse(figureStr);
 	}
-	
+
 	@Test
 	void empty_json_string_test()
 	{
@@ -43,30 +43,25 @@ class JSONParserTest
 		ComponentNode node = JSONParserTest.runFigureParseTest("single_triangle.json");
 
 		assertTrue(node instanceof FigureNode);
-		
-		//StringBuilder sb = new StringBuilder();
-				//node.unparse(sb, 0);
-				//System.out.println(sb.toString());
-			}
-			
-			@Test
-			void collinear_line_segments_test() throws ParseException, JSONException, NotInDatabaseException
-			{
-				//
-				// The input String ("single_triangle.json") assumes the file is
-				// located at the top-level of the project. If you move your input
-				// files into a folder, update this String with the path:
-				//                                       e.g., "my_folder/single_triangle.json"
-				//
-				ComponentNode node = JSONParserTest.runFigureParseTest("collinear_line_segments.json");
 
-				assertTrue(node instanceof FigureNode);
-				
-				
-				//StringBuilder sb = new StringBuilder();
-				//node.unparse(sb, 0);
-				//System.out.println(sb.toString());
-		
+		StringBuilder sb = new StringBuilder();
+		node.unparse(sb, 0);
+		System.out.println(sb.toString());
+	}
+
+	@Test
+	void collinear_line_segments_test() throws ParseException, JSONException, NotInDatabaseException
+	{
+		//
+		// The input String ("single_triangle.json") assumes the file is
+		// located at the top-level of the project. If you move your input
+		// files into a folder, update this String with the path:
+		//                                       e.g., "my_folder/single_triangle.json"
+		//
+		ComponentNode node = JSONParserTest.runFigureParseTest("collinear_line_segments.json");
+
+		assertTrue(node instanceof FigureNode);
+
 		StringBuilder sb = new StringBuilder();
 		node.unparse(sb, 0);
 		System.out.println(sb.toString());

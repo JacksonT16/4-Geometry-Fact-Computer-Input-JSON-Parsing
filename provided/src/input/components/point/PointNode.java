@@ -1,15 +1,14 @@
 package input.components.point;
 
+import input.components.ComponentNode;
 import utilities.math.MathUtilities;
 
 /**
  * A 2D Point (x, y).
- * @date 1/22/2024
- * @author Jackson Tedesco
- * @author Tony Song
- * @author Case Riddle
+ * @date 2/20/2024
+ * @author Jackson Tedesco, Case Riddle
  */
-public class PointNode
+public class PointNode implements ComponentNode
 {
 	protected static final String ANONYMOUS = "__UNNAMED";
 
@@ -76,11 +75,17 @@ public class PointNode
 		return _name + "(" + _x + ", " + _y + ")";
 	}
 
-	
+	/**
+	 * 
+	 * @param sb
+	 * @param level
+	 */
+	@Override
 	public void unparse(StringBuilder sb, int level) {
-		sb.append("Point(" + _name + ")(" + _x + "," + _y + ")\n");
+		for (int i = 0; i < level; i++) {
+            sb.append("\t");
+        }
+		
+		sb.append("Point " + toString() +"\n");
 	}
-
-	//unparse(sb, level);
-
 }

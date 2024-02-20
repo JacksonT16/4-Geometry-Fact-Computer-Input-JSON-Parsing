@@ -1,5 +1,6 @@
 package input.Tree;
 import input.components.point.PointNode;
+import input.components.point.PointNodeDatabase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;

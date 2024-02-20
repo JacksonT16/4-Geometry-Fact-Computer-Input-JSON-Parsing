@@ -8,16 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import input.components.ComponentNode;
 import input.components.point.PointNode;
 
 /**
  * Database base of segment nodes
- * @author Jackson Tedesco
- * @author	Tony Song
- * @author Case Riddle
- * @date 1/23/2024
+ * @author Jackson Tedesco, Case Riddle
+ * @date 2/20/2024
  */
-public class SegmentNodeDatabase {
+public class SegmentNodeDatabase implements ComponentNode{
 	private Map<PointNode, Set<PointNode>> _adjLists;
 
 	public SegmentNodeDatabase()
@@ -116,26 +115,31 @@ public class SegmentNodeDatabase {
 		}
 	}
 
+	/**
+	 * 
+	 */
+	@Override
 	public void unparse(StringBuilder sb, int level) {
-		List<SegmentNode> uniqueSegments = asUniqueSegmentList();
-		//SegmentNodeDatabase s1 = new SegmentNodeDatabase();
-
 		Set<PointNode> keys = _adjLists.keySet();
 
 		for(PointNode key: keys) {
+			indent(sb,level);
 			sb.append(key.getName() +": ");
 			for(PointNode value: _adjLists.get(key)) {
 				sb.append(value.getName() + " ");
 			}
 			sb.append("\n");
 		}
+	}
 
-		/*for (SegmentNode s2 : s1) {
-	    	sb.append(s2 +": ");
-	    	for(PointNode value: _adjLists.get(s2)) {
-	    		sb.append(value + " ");
-	    	}
-	    	sb.append("\n");*/
-		//  segment.unparse(sb, level);
+	/**
+	 * 
+	 * @param sb
+	 * @param level
+	 */
+	private void indent(StringBuilder sb, int level) {
+		for (int i = 0; i < level; i++) {
+			sb.append("\t");
+		}
 	}
 }

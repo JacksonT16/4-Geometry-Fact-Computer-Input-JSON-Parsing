@@ -1,6 +1,4 @@
-
 package input.parser;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,8 +36,7 @@ public class JSONParser
 
 	private void error(String message)
 	{
-		throw new ParseException("Parse error: " + message);// where to use this
-		throw new ParseException("Parse error: " + message);
+		throw new ParseException("Parse error: " + message);// where to use this????????
 	}
 	
 	/**
@@ -65,7 +62,7 @@ public class JSONParser
 
 		String description = getDescription(JSONroot);
 		PointNodeDatabase points = getPoints(JSONroot);
-		SegmentNodeDatabase segments = getSegmentNodeDatabase(JSONroot.getJSONArray("Segments"), points);
+		SegmentNodeDatabase segments = getSegmentDatabase(JSONroot.getJSONArray("Segments"), points);
 
 		_astRoot = new FigureNode(description, points, segments);
 		return _astRoot;
@@ -84,7 +81,6 @@ public class JSONParser
 	 * @return PointNodeDatabase from the JSONObject
 	 */
 	private PointNodeDatabase getPoints(JSONObject JSONroot) {
-		String description = JSONroot.getString("Description");
 		PointNodeDatabase points = new PointNodeDatabase();
 
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
@@ -118,7 +114,6 @@ public class JSONParser
 		String name = node.getString("name");
 		double x = node.getInt("x");
 		double y = node.getInt("y");
-		return new FigureNode(description, points, segments);
 
 		return new PointNode(name, x, y);
 		// TODO: Build the whole AST, check for return class object, and return the root
@@ -132,7 +127,7 @@ public class JSONParser
 	 * @throws JSONException 
 	 * @throws NullPointerException 
 	 */
-	private SegmentNodeDatabase getSegmentNodeDatabase(JSONArray segmentList, PointNodeDatabase points) 
+	private SegmentNodeDatabase getSegmentDatabase(JSONArray segmentList, PointNodeDatabase points) 
 			throws NullPointerException, JSONException, NotInDatabaseException {
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		
@@ -163,6 +158,4 @@ public class JSONParser
 			output.addUndirectedEdge(points.getPoint(headNode), points.getPoint(segmentPoints.getString(i)));
 		}
 	}
-	// TODO: implement supporting functionality
-
 }
