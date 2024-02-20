@@ -66,7 +66,7 @@ class JSONParserTest
 		node.unparse(sb, 0);
 		System.out.println(sb.toString());
 	}
-	
+
 	@Test
 	void crossing_symmetric_triangle_test() throws ParseException, JSONException, NotInDatabaseException
 	{
@@ -102,7 +102,7 @@ class JSONParserTest
 		node.unparse(sb, 0);
 		System.out.println(sb.toString());
 	}
-	
+
 	@Test
 	void square_four_interior_triangles_test() throws ParseException, JSONException, NotInDatabaseException
 	{
@@ -119,7 +119,7 @@ class JSONParserTest
 		StringBuilder sb = new StringBuilder();
 		node.unparse(sb, 0);
 		System.out.println(sb.toString());
-	}*/
+	}
 	// zero trabgle test
 	// test grid
 	@Test
@@ -132,6 +132,24 @@ class JSONParserTest
 		//                                       e.g., "my_folder/single_triangle.json"
 		//
 		ComponentNode node = JSONParserTest.runFigureParseTest("four_point_star.json");
+
+		assertTrue(node instanceof FigureNode);
+
+		StringBuilder sb = new StringBuilder();
+		node.unparse(sb, 0);
+		System.out.println(sb.toString());
+	}*/
+
+	@Test
+	void traingle_with_three_triangles_inside_test() throws ParseException, JSONException, NotInDatabaseException
+	{
+		//
+		// The input String ("single_triangle.json") assumes the file is
+		// located at the top-level of the project. If you move your input
+		// files into a folder, update this String with the path:
+		//                                       e.g., "my_folder/single_triangle.json"
+		//
+		ComponentNode node = JSONParserTest.runFigureParseTest("triangle_with_three_triangles_inside.json");
 
 		assertTrue(node instanceof FigureNode);
 
