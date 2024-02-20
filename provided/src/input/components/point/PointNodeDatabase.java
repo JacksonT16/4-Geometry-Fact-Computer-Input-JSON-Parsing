@@ -110,7 +110,9 @@ public class PointNodeDatabase implements ComponentNode{
 	}
 	
 	/**
-	 * 
+	 * Utilizes a loop to iterate and unparse.
+	 * @param sb
+	 * @param level
 	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {
