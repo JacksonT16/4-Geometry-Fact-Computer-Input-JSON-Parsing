@@ -28,6 +28,11 @@ public class FigureNode implements ComponentNode
 		_segments = segments;
 	}
 
+	/**
+	 * Recursively creates a format that matches the provided JSON format.
+	 * @param sb
+	 * @param level
+	 */
 	@Override
     public void unparse(StringBuilder sb, int level) {
 		appendIndented(sb, level, "Figure");
