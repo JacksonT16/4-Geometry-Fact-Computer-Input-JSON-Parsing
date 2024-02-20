@@ -116,7 +116,9 @@ public class SegmentNodeDatabase implements ComponentNode{
 	}
 
 	/**
-	 * 
+	 * Utilizes two for-each loops to iterate through a string and complete our format.
+	 * @param sb
+	 * @param level
 	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {

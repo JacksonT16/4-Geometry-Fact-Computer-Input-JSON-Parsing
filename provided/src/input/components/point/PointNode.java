@@ -76,7 +76,7 @@ public class PointNode implements ComponentNode
 	}
 
 	/**
-	 * 
+	 * Iterates through a string and appends elements.
 	 * @param sb
 	 * @param level
 	 */
