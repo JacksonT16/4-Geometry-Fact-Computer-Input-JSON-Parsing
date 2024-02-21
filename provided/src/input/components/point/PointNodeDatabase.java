@@ -10,7 +10,6 @@ import input.components.ComponentNode;
  * @date 2/20/2024
  * @author Case Riddle, Jackson Tedesco
  **/
-
 public class PointNodeDatabase implements ComponentNode{
 	private Set<PointNode> _points;
 
@@ -110,9 +109,9 @@ public class PointNodeDatabase implements ComponentNode{
 	}
 	
 	/**
-	 * Utilizes a loop to iterate and unparse.
-	 * @param sb
-	 * @param level
+	 * Utilizes a loop to iterate and unparse the pointNodes of PointNodeDatabase.
+	 * @param sb: String builder that is added too.
+	 * @param level: level of indentation passed down to the points
 	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {

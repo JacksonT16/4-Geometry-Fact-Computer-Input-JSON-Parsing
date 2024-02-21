@@ -1,5 +1,4 @@
 package input.components.point;
-
 import input.components.ComponentNode;
 import utilities.math.MathUtilities;
 
@@ -77,8 +76,8 @@ public class PointNode implements ComponentNode
 
 	/**
 	 * Iterates through a string and appends elements.
-	 * @param sb
-	 * @param level
+	 * @param sb: String builder that unparse adds a string too.
+	 * @param level: level of indentation 
 	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {

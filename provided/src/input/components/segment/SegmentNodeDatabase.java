@@ -117,8 +117,8 @@ public class SegmentNodeDatabase implements ComponentNode{
 
 	/**
 	 * Utilizes two for-each loops to iterate through a string and complete our format.
-	 * @param sb
-	 * @param level
+	 * @param sb: String builder that is added too.
+	 * @param level: level of indentation 
 	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {
@@ -135,9 +135,9 @@ public class SegmentNodeDatabase implements ComponentNode{
 	}
 
 	/**
-	 * 
-	 * @param sb
-	 * @param level
+	 * Indents the string builder to the  level  
+	 * @param sb: String builder that is indented.
+	 * @param level: level of indentation 
 	 */
 	private void indent(StringBuilder sb, int level) {
 		for (int i = 0; i < level; i++) {

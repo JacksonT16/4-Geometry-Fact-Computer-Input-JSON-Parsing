@@ -21,8 +21,7 @@ import input.exception.ParseException;
 public class JSONParser
 {
 	protected ComponentNode  _astRoot;
-	
-	//think about using Constants
+
 	// think about possable exception
 
 	public JSONParser()
@@ -34,7 +33,7 @@ public class JSONParser
 	{
 		throw new ParseException("Parse error: " + message);// where to use this????????
 	}
-	
+
 	/**
 	 * creates an FigureNode out of the inputed JSON file
 	 * @param str: JSON file file in the form of a string
@@ -44,21 +43,20 @@ public class JSONParser
 	 * @throws JSONException
 	 * @throws NotInDatabaseException
 	 */
-
 	public ComponentNode parse(String str) throws ParseException, JSONException, NotInDatabaseException
 	{
-		// Parsing is accomplished via the JSONTokenizer class.
 		if(str.equals("{}")) {
 			error("JSON is empty");
 		}
 		
+		// Parsing is accomplished via the JSONTokenizer class.
 		JSONTokener tokenizer = new JSONTokener(str);
-		JSONObject  JSONroot = ((JSONObject)tokenizer.nextValue()).getJSONObject("Figure");//?
-		//JSONroot = JSONroot.getJSONObject("Figure");
+		JSONObject  JSONroot = ((JSONObject)tokenizer.nextValue()).getJSONObject("Figure");
 
 		String description = getDescription(JSONroot);
 		PointNodeDatabase points = getPoints(JSONroot);
-		SegmentNodeDatabase segments = getSegmentDatabase(JSONroot.getJSONArray("Segments"), points);
+		SegmentNodeDatabase segments = getSegmentDatabase
+				(JSONroot.getJSONArray("Segments"), points);
 
 		_astRoot = new FigureNode(description, points, segments);
 		return _astRoot;
@@ -78,25 +76,10 @@ public class JSONParser
 	 */
 	private PointNodeDatabase getPoints(JSONObject JSONroot) {
 		PointNodeDatabase points = new PointNodeDatabase();
-
-		SegmentNodeDatabase segments = new SegmentNodeDatabase();
-		
 		JSONArray pointlist = JSONroot.getJSONArray("Points");
-		PointNode prevNode = null;
+		
 		for(int i = 0; i < pointlist.length(); i++) {
 			points.put(getPoint(pointlist.getJSONObject(i)));
-			String name = pointlist.getJSONObject(i).getString("name");
-			double x = pointlist.getJSONObject(i).getInt("x");
-			double y = pointlist.getJSONObject(i).getInt("y");
-			
-			PointNode tempNode = new PointNode(name, x, y);
-			points.put(tempNode);
-			
-			if(prevNode != null) {
-				segments.addUndirectedEdge(tempNode, prevNode);
-			}else {
-				prevNode = tempNode;
-			}	
 		}
 
 		return points;
@@ -112,7 +95,6 @@ public class JSONParser
 		double y = node.getInt("y");
 
 		return new PointNode(name, x, y);
-		// TODO: Build the whole AST, check for return class object, and return the root
 	}
 
 	/**
@@ -123,33 +105,34 @@ public class JSONParser
 	 * @throws JSONException 
 	 * @throws NullPointerException 
 	 */
-	private SegmentNodeDatabase getSegmentDatabase(JSONArray segmentList, PointNodeDatabase points) 
+	private SegmentNodeDatabase getSegmentDatabase(JSONArray segmentL, PointNodeDatabase points) 
 			throws NullPointerException, JSONException, NotInDatabaseException {
-		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		
-		for(int i = 0; i < segmentList.length(); i++) {
-			JSONObject subList = segmentList.getJSONObject(i);
-			
+		SegmentNodeDatabase segments = new SegmentNodeDatabase();
+
+		for(int i = 0; i < segmentL.length(); i++) {
+			JSONObject subList = segmentL.getJSONObject(i);
 			getSegment(subList, segments, subList.toString().substring(2, 3), points);
 		}
-		
+
 		return segments;
 	}
-	
+
 	/**
-	 * Creates segments from the PointNode JSONArray from the JSONObject segment and adds them to 
-	 * inputed SegmentNodeDatabase.
+	 * Creates segments from the PointNode JSONArray from the 
+	 * JSONObject segment and adds them to inputed SegmentNodeDatabase.
 	 * @param segment: Object that value stores the JSONArray of points
-	 * @param output: The SegmentNodeDatabase that the created segments are added to0
-	 * @param headNode: The string version of the key of the object. Used as one point on all segments
+	 * @param output: The SegmentNodeDatabase that the created segments are added too
+	 * @param headNode: The string version of the key of the object.
 	 * @param points: PointNodeDatabase that stores the points that will make up the segment
 	 * @throws NotInDatabaseException 
 	 * @throws JSONException 
 	 * @throws NullPointerException 
 	 */
-	private void getSegment(JSONObject segment, SegmentNodeDatabase output, String headNode, PointNodeDatabase points) throws NullPointerException, JSONException, NotInDatabaseException {
+	private void getSegment(JSONObject segment, SegmentNodeDatabase output, String headNode, 
+			PointNodeDatabase points) throws NullPointerException, JSONException, NotInDatabaseException {
 		JSONArray segmentPoints = segment.getJSONArray(headNode);
-		
+
 		for(int i = 0; i < segmentPoints.length(); i++) {
 			output.addUndirectedEdge(points.getPoint(headNode), points.getPoint(segmentPoints.getString(i)));
 		}

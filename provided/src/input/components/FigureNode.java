@@ -7,9 +7,9 @@ import input.components.segment.SegmentNodeDatabase;
 
 /**
  * A basic figure consists of points, segments, and an optional description
- * 
  * Each figure has distinct points and segments (thus unique database objects).
- * 
+ * @author Jackson Tedesco, Case Riddle
+ * @date 2/20/2024
  */
 public class FigureNode implements ComponentNode
 {
@@ -30,8 +30,8 @@ public class FigureNode implements ComponentNode
 
 	/**
 	 * Recursively creates a format that matches the provided JSON format.
-	 * @param sb
-	 * @param level
+	 * @param sb: String builder that the unparse adds too
+	 * @param level: the level of indentation 
 	 */
 	@Override
     public void unparse(StringBuilder sb, int level) {
@@ -39,18 +39,27 @@ public class FigureNode implements ComponentNode
 		++level;
 		appendIndented(sb, level, "Description : \"" + _description + "\"");
 		
+		//adds points to point node database
         appendIndented(sb, level, "Points:");
         appendIndented(sb, level, "{");
         _points.unparse(sb, level + 1);
         appendIndented(sb, level, "}");
-
+        
+        //adds segments to segmentNodeDataBase
         appendIndented(sb, level, "Segments:");
         appendIndented(sb, level, "{");
         _segments.unparse(sb, level + 1);
         appendIndented(sb, level, "}");
+        
         appendIndented(sb, level - 1, "}");
     }
-
+	
+	/**
+	 * indents string to proper indentation and add string to string builder
+	 * @param sb: String builder that is added too
+	 * @param level: level of indentation
+	 * @param content: string that is added after indentation
+	 */
     private void appendIndented(StringBuilder sb, int level, String content) {
         for (int i = 0; i < level; i++) {
             sb.append("\t");

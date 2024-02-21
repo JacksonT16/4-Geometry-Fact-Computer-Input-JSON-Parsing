@@ -19,7 +19,6 @@ class JSONParserTest
 		JSONParser parser = new JSONParser();
 
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments(filename);
-		//System.out.println(figureStr);
 		return parser.parse(figureStr);
 	}
 
@@ -31,7 +30,7 @@ class JSONParserTest
 		assertThrows(ParseException.class, () -> { parser.parse("{}"); });
 	}
 
-	/*@Test
+	@Test
 	void single_triangle_test() throws ParseException, JSONException, NotInDatabaseException
 	{
 		//
@@ -72,7 +71,7 @@ class JSONParserTest
 		node.unparse(sb, 0);
 		System.out.println(sb.toString());
 	}
-	// many triangle test
+	
 	@Test
 	void fully_connected_irregular_polygon_test() throws ParseException, JSONException, NotInDatabaseException
 	{
@@ -96,8 +95,7 @@ class JSONParserTest
 		node.unparse(sb, 0);
 		System.out.println(sb.toString());
 	}
-	// zero trabgle test
-	// test grid
+	
 	@Test
 	void four_point_star_test() throws ParseException, JSONException, NotInDatabaseException
 	{
@@ -144,7 +142,7 @@ class JSONParserTest
 		StringBuilder sb = new StringBuilder();
 		node.unparse(sb, 0);
 		System.out.println(sb.toString());
-	}*/
+	}
 	
 	@Test
 	void two_separate_triangles_test() throws ParseException, JSONException, NotInDatabaseException
