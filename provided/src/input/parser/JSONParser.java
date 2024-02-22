@@ -43,8 +43,8 @@ public class JSONParser
 	 */
 	public ComponentNode parse(String str) throws ParseException, JSONException, NotInDatabaseException
 	{
-		if(str.equals("{}")) error("JSON is empty");
-		
+		if(str.equals("{}")) error("JSON is empty");// 
+
 		// Parsing is accomplished via the JSONTokenizer class.
 		JSONTokener tokenizer = new JSONTokener(str);
 		JSONObject  JSONroot = ((JSONObject)tokenizer.nextValue()).getJSONObject("Figure");
@@ -72,7 +72,7 @@ public class JSONParser
 	private PointNodeDatabase getPoints(JSONObject JSONroot) {
 		PointNodeDatabase points = new PointNodeDatabase();
 		JSONArray pointlist = JSONroot.getJSONArray("Points");
-		
+
 		for(int i = 0; i < pointlist.length(); i++) {
 			points.put(getPoint(pointlist.getJSONObject(i)));
 		}
@@ -102,7 +102,7 @@ public class JSONParser
 	 */
 	private SegmentNodeDatabase getSegmentDatabase(JSONArray segmentList, PointNodeDatabase points) 
 			throws NullPointerException, JSONException, NotInDatabaseException {
-		
+
 		SegmentNodeDatabase outPut = new SegmentNodeDatabase();
 
 		for(int i = 0; i < segmentList.length(); i++) {
@@ -125,10 +125,10 @@ public class JSONParser
 	 */
 	private void getSegment(JSONObject segmentList, SegmentNodeDatabase output, PointNodeDatabase points) 
 			throws NullPointerException, JSONException, NotInDatabaseException {
-		
+
 		String headNode = segmentList.toString().substring(2, 3);
-	JSONArray segmentPoints = segmentList.getJSONArray(headNode);
-		
+		JSONArray segmentPoints = segmentList.getJSONArray(headNode);
+
 		for(int i = 0; i < segmentPoints.length(); i++) {
 			output.addUndirectedEdge(points.getPoint(headNode), points.getPoint(segmentPoints.getString(i)));
 		}

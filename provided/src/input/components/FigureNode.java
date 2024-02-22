@@ -51,8 +51,6 @@ public class FigureNode implements ComponentNode
         appendIndented(sb, level, "{");
         _segments.unparse(sb, level + 1);
         appendIndented(sb, level, "}");
-        
-        appendIndented(sb, level - 1, "}");
     }
 	
 	/**
