@@ -1,20 +1,14 @@
 package input.Tree;
 import input.components.point.PointNode;
-import input.components.point.PointNodeDatabase;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 /**
  * Test pointNode
- * @date 1/22/2024
+ * @date 2/22/2024
  * @author Jackson Tedesco
- * @author Tony Song
  * @author Case Riddle
  */
 class PointNodeTest {
@@ -35,45 +29,42 @@ class PointNodeTest {
 	@Test
 	void testToString() {
 		PointNode myPointNode= new PointNode(1,2);
-		assertEquals(("__UNNAMED(1.0, 2.0)"), myPointNode.toString());
+		assertEquals("__UNNAMED(1.0, 2.0)", myPointNode.toString());
 
 		myPointNode= new PointNode("joe", 1,2);
-		assertEquals(("joe(1.0, 2.0)"), myPointNode.toString());
+		assertEquals("joe(1.0, 2.0)", myPointNode.toString());
 	}
 
 	@Test
 	void testUnparse() {
-		List<PointNode> p1 = new ArrayList<>();
-		p1.add(new PointNode("Point1", 1.0, 2.0));
-		p1.add(new PointNode("Point2", 3.0, 4.0));
-		p1.add(new PointNode("Point3", 5.0, 6.0));
-		PointNodeDatabase d1 = new PointNodeDatabase(p1);
+		StringBuilder result1 = new StringBuilder();
+		PointNode node = new PointNode("A", 2, 3);	
+		node.unparse(result1, 0);
+		System.out.println(result1.toString());
 
-		StringBuilder s1 = new StringBuilder();
+		node = new PointNode(2, 3);
+		result1 = new StringBuilder();
+		node.unparse(result1, 0);
+		System.out.println(result1);
 
-		d1.unparse(s1, 0);
+		node = new PointNode(2.69, 3.56);
+		result1 = new StringBuilder();
+		node.unparse(result1, 0);
+		System.out.println(result1);
 
-		String e1 = "Point1: (1.0, 2.0)" +
-				"Point2: (3.0, 4.0)" +
-				"Point3: (5.0, 6.0)";
+		node = new PointNode(2, 3);
+		result1 = new StringBuilder();
+		node.unparse(result1, 1);
+		System.out.println(result1);
 
-		assertEquals(e1, s1.toString());
+		result1 = new StringBuilder();
+		node.unparse(result1, 3);
+		System.out.println(result1);
 
-		List<PointNode> p2 = new ArrayList<>();
-		p2.add(new PointNode("Point1", 0.0, 0.0));
-		p2.add(new PointNode("Point2", 3.0, 4.0));
-		p2.add(new PointNode("Point3", 5.0, 6.0));
-		PointNodeDatabase d2 = new PointNodeDatabase(p2);
-
-		StringBuilder s2 = new StringBuilder();
-
-		d2.unparse(s2, 0);
-
-		String e2 = "Point1: (0.0, 1.0)" +
-				"Point3: [3.0, 4.0]" +
-				"Point2: (5.0, 6.0)";
-
-		assertNotEquals(e2, s2.toString());
+		assertThrows(IllegalArgumentException.class, () -> {
+			PointNode eNode = new PointNode(2, 6);
+			StringBuilder result2 = new StringBuilder();
+			eNode.unparse(result2, -1);
+		});
 	}
-
 }

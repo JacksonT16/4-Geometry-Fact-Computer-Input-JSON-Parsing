@@ -78,9 +78,12 @@ public class PointNode implements ComponentNode
 	 * Iterates through a string and appends elements.
 	 * @param sb: String builder that unparse adds a string too.
 	 * @param level: level of indentation 
+	 * @exception IllegalArgumentException
 	 */
 	@Override
-	public void unparse(StringBuilder sb, int level) {
+	public void unparse(StringBuilder sb, int level) throws IllegalArgumentException {
+		if(level < 0) throw new IllegalArgumentException("level is negtive number");
+		
 		for (int i = 0; i < level; i++) {
             sb.append("\t");
         }

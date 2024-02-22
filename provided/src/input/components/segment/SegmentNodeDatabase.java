@@ -121,15 +121,20 @@ public class SegmentNodeDatabase implements ComponentNode{
 	 * @param level: level of indentation 
 	 */
 	@Override
-	public void unparse(StringBuilder sb, int level) {
+	public void unparse(StringBuilder sb, int level) throws IllegalArgumentException{
+		if(level < 0) throw new IllegalArgumentException("level is negtive number");
+
 		Set<PointNode> keys = _adjLists.keySet();
 
 		for(PointNode key: keys) {
+			
 			indent(sb,level);
 			sb.append(key.getName() +": ");
+
 			for(PointNode value: _adjLists.get(key)) {
 				sb.append(value.getName() + " ");
 			}
+
 			sb.append("\n");
 		}
 	}

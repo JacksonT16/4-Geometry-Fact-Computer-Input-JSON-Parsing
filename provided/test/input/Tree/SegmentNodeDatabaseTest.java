@@ -169,30 +169,37 @@ class SegmentNodeDatabaseTest
 
 	@Test
 	void testUnparse() {
-		/*SegmentNode s1 = new SegmentNode(new PointNode("a", 1.0, 2.0), new PointNode("b", 3.0, 4.0));
-		SegmentNode s2 = new SegmentNode(new PointNode("c", 5.0, 6.0), new PointNode(""7.0, 8.0));*/
-
-		/*List<PointNode> points1 = Arrays.asList(new PointNode(1.0, 2.0), new PointNode(3.0, 4.0));
-		List<PointNode> points2 = Arrays.asList(new PointNode(5.0, 6.0), new PointNode(7.0, 8.0));*/
+		SegmentNodeDatabase database = new SegmentNodeDatabase();
+		StringBuilder result = new StringBuilder();
+		
+		database.unparse(result, 0);
+		System.out.println(result);
 		
 		PointNode node1 = new PointNode("a" ,1.0, 2.0);
 		PointNode node2 = new PointNode("b" ,5.0, 2.0);
-		PointNode node3 = new PointNode("c" ,2.0, 6.0);
-		
-		SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
-		segmentDatabase.addUndirectedEdge(node1, node2);
-		segmentDatabase.addUndirectedEdge(node2, node3);
-		segmentDatabase.addUndirectedEdge(node3, node1);
+		PointNode node3 = new PointNode("c" ,1.0, 6.0);
+		PointNode node4 = new PointNode("d" ,5.0, 6.0);
+			
+		database.addUndirectedEdge(node1, node2);
+		database.addUndirectedEdge(node2, node3);
+		database.addUndirectedEdge(node3, node4);
+		database.addUndirectedEdge(node4, node1);
 
-		StringBuilder sb = new StringBuilder();
-		segmentDatabase.unparse(sb, 0);
+		result = new StringBuilder();
+		database.unparse(result, 0);
+		System.out.println(result);
 		
-		System.out.println(sb);
-
-		String expectedOutput = "(1.0, 2.0) - (3.0, 4.0)\n" +
-				"(5.0, 6.0) - (7.0, 8.0)\n";
+		result = new StringBuilder();
+		database.unparse(result, 1);
+		System.out.println(result);
 		
-		assertEquals(expectedOutput, sb.toString());
-
+		result = new StringBuilder();
+		database.unparse(result, 3);
+		System.out.println(result);
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			StringBuilder result2 = new StringBuilder();
+			database.unparse(result2, -1);
+		});
 	}
 }

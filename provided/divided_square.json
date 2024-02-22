@@ -1,12 +1,11 @@
 // A------B
-// | \  / |
-// |  E   |
-// |/    \|
+// |    / |
+// |  /   |
 // D------C
 {
   "Figure" :
   {
-    "Description" : "A square that contains four triangles within it.",
+    "Description" : "A square that is divided into two triangles.",
     "Points" :
 	  [
 	    {
@@ -28,20 +27,14 @@
 		  "name" : "D",
 		  "x" : 0,
    	      "y" : 5
-		},
-		{
-		  "name" : "E",
-		  "x" : 3,
-   	      "y" : 3
 		}
 	  ],
   
     "Segments" :
       [
-	    {"A" : ["B", "E", "D"] },
-	    {"B" : ["C", "E"]},
-	    {"C" : ["D", "E"]},
-	    {"D" : ["E"]}
+	    {"A" : ["B", "D"] },
+	    {"B" : ["C", "D"]},
+	    {"C" : ["D"]}
       ]
   }
 }

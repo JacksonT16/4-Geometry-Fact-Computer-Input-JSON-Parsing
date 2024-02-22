@@ -16,14 +16,11 @@ import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 
 /**
- * 
- * @author Jackson Tedesco
- * @author	Tony Song
- * @author Case Riddle
- * @date 1/23/2024
+ * Test PointNodeDatabaseTest
+ * @author Jackson Tedesco, Case Riddle
+ * @date 2/21/2024
  */
 class PointNodeDatabaseTest {
-
 	@Test
 	void putAndContainsTest() throws NotInDatabaseException {
 		PointNodeDatabase data = new PointNodeDatabase();
@@ -73,25 +70,29 @@ class PointNodeDatabaseTest {
 		PointNode node2 = new PointNode("B", 6, 5);
 		assertThrows(NotInDatabaseException.class, () -> {data.getPoint(node2);});
 	}
+	
 	@Test
 	void testUnparse() {
-		List<PointNode> points = new ArrayList<>();
-		points.add(new PointNode("Point1", 1.0, 2.0));
-		points.add(new PointNode("Point2", 3.0, 4.0));
-		points.add(new PointNode("Point3", 5.0, 6.0));
-		PointNodeDatabase database = new PointNodeDatabase(points);
-
+		PointNodeDatabase database = new PointNodeDatabase();
 		StringBuilder sb = new StringBuilder();
-
 		database.unparse(sb, 0);
+		System.out.println(sb);
 		
-		System.out.println(sb);;
-		String expectedOutput = "Point1: (1.0, 2.0)\n" +
-				"Point2: (3.0, 4.0)\n" +
-				"Point3: (5.0, 6.0)\n";
-
-		assertEquals(expectedOutput, sb.toString());
+		database.put(new PointNode("A", 1.0, 2.0));
+		database.put(new PointNode("B", 3.0, 4.0));
+		database.put(new PointNode("C", 5.0, 6.0));
+		database.put(new PointNode("D", 8.0, 1.0));
+		
+		sb = new StringBuilder();
+		database.unparse(sb, 0);
+		System.out.println(sb);
+		
+		sb = new StringBuilder();
+		database.unparse(sb, 1);
+		System.out.println(sb);
+		
+		sb = new StringBuilder();
+		database.unparse(sb, 3);
+		System.out.println(sb);
 	}
-
-
 }

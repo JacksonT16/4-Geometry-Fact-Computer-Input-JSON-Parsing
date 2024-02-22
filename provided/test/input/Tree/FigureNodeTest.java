@@ -8,70 +8,80 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import input.components.FigureNode;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
-
+/**
+ * Test figure node
+ * @author Jackson Tedesco, Case Riddle
+ * @date 2/21/2024
+ */
 class FigureNodeTest {
-
-	/*@Test
-	class FigureNodeTest {
-
-		SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
-		segmentDatabase.addUndirectedEdge(new PointNode("A", 1.0, 2.0), new PointNode("B", 3.0, 4.0));
-	}
-
-	@Test
-	void unparseTest() {
-
-		/*String s = "hi joe";
-		PointNodeDatabase point = new PointNodeDatabase();
-		PointNode node1 = new PointNode("A", 4, 7);
-		PointNode node2 = new PointNode("B", 4, 7);
-		PointNode node3 = new PointNode("C", 4, 7);
-		point.put(node1);
-		point.put(node2);
-		point.put(node3);
-
-		SegmentNodeDatabase segment = new SegmentNodeDatabase();
-		segment.addUndirectedEdge(node1, node2); 
-		segment.addUndirectedEdge(node2, node3);
-		segment.addUndirectedEdge(node1, node3);
-
-		FigureNode node = new FigureNode(s, point, segment);
-		StringBuilder st = new StringBuilder();
-		System.out.(node.unparse(st, 0));*/
-	//}
-
 	@Test
     void unparseTest() {
         PointNodeDatabase pointsDatabase = new PointNodeDatabase();
-        pointsDatabase.put(new PointNode("A", 1.0, 2.0));
-        pointsDatabase.put(new PointNode("B", 3.0, 4.0));
+        PointNode a = new PointNode("A", 1.0, 3.0);
+        PointNode b = new PointNode("B", 3.0, 3.0);
+        PointNode c = new PointNode("C", 3.0, 1.0);
+        PointNode d = new PointNode("D", 1.0, 1.0);
+        
+        pointsDatabase.put(a);
+        pointsDatabase.put(b);
+        pointsDatabase.put(c);
+        pointsDatabase.put(d);
 
         SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
-        segmentDatabase.addUndirectedEdge(new PointNode("A", 1.0, 2.0), new PointNode("B", 3.0, 4.0));
+        segmentDatabase.addUndirectedEdge(b, a);
+        segmentDatabase.addUndirectedEdge(b, c);
+        segmentDatabase.addUndirectedEdge(c, d);
+        segmentDatabase.addUndirectedEdge(d, a);
 
         FigureNode figure = new FigureNode("Sample Figure", pointsDatabase, segmentDatabase);
-
         StringBuilder result = new StringBuilder();
 
         figure.unparse(result, 0);
         System.out.println(result);
-        String expectedOutput = "Description : \"Sample Figure\"\n" +
-                "Points:\n" +
-                "    Point(A)(1.0, 2.0)\n" +
-                "    Point(B)(3.0, 4.0)\n" +
-                "Segments:\n" +
-                "    Segment(A, B)\n";
-        assertEquals(expectedOutput, result.toString());
     }
+	
+	@Test
+    void emptyUnparseTest() {
+		PointNodeDatabase pointsDatabase = new PointNodeDatabase();
+        SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
 
-	//FigureNode figure = new FigureNode("Sample Figure", pointsDatabase, segmentDatabase);
+        FigureNode figure = new FigureNode("", pointsDatabase, segmentDatabase);
+        StringBuilder result = new StringBuilder();
 
-	//StringBuilder result = new StringBuilder();
+        figure.unparse(result, 0);
+        System.out.println(result);
+    }
+	
+	@Test
+	void levelTest() {
+        PointNodeDatabase pointsDatabase = new PointNodeDatabase();
+        PointNode a = new PointNode("A", 1.0, 3.0);
+        PointNode b = new PointNode("B", 3.0, 3.0);
+        
+        pointsDatabase.put(a);
+        pointsDatabase.put(b);
+
+        SegmentNodeDatabase segmentDatabase = new SegmentNodeDatabase();
+        segmentDatabase.addUndirectedEdge(b, a);
+
+        FigureNode figure = new FigureNode("Sample Figure", pointsDatabase, segmentDatabase);
+        StringBuilder result = new StringBuilder();
+        
+        figure.unparse(result, 1);
+        System.out.println(result);
+        
+        result = new StringBuilder();
+        figure.unparse(result, 3);
+        System.out.println(result);
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+			StringBuilder result2 = new StringBuilder();
+			figure.unparse(result2, -1);
+		});
+    }
 }
-

@@ -22,8 +22,6 @@ public class JSONParser
 {
 	protected ComponentNode  _astRoot;
 
-	// think about possable exception
-
 	public JSONParser()
 	{
 		_astRoot = null;
@@ -31,7 +29,7 @@ public class JSONParser
 
 	private void error(String message)
 	{
-		throw new ParseException("Parse error: " + message);// where to use this????????
+		throw new ParseException("Parse error: " + message);
 	}
 
 	/**
@@ -45,9 +43,7 @@ public class JSONParser
 	 */
 	public ComponentNode parse(String str) throws ParseException, JSONException, NotInDatabaseException
 	{
-		if(str.equals("{}")) {
-			error("JSON is empty");
-		}
+		if(str.equals("{}")) error("JSON is empty");
 		
 		// Parsing is accomplished via the JSONTokenizer class.
 		JSONTokener tokenizer = new JSONTokener(str);
@@ -55,8 +51,7 @@ public class JSONParser
 
 		String description = getDescription(JSONroot);
 		PointNodeDatabase points = getPoints(JSONroot);
-		SegmentNodeDatabase segments = getSegmentDatabase
-				(JSONroot.getJSONArray("Segments"), points);
+		SegmentNodeDatabase segments = getSegmentDatabase(JSONroot.getJSONArray("Segments"), points);
 
 		_astRoot = new FigureNode(description, points, segments);
 		return _astRoot;
@@ -105,17 +100,17 @@ public class JSONParser
 	 * @throws JSONException 
 	 * @throws NullPointerException 
 	 */
-	private SegmentNodeDatabase getSegmentDatabase(JSONArray segmentL, PointNodeDatabase points) 
+	private SegmentNodeDatabase getSegmentDatabase(JSONArray segmentList, PointNodeDatabase points) 
 			throws NullPointerException, JSONException, NotInDatabaseException {
 		
-		SegmentNodeDatabase segments = new SegmentNodeDatabase();
+		SegmentNodeDatabase outPut = new SegmentNodeDatabase();
 
-		for(int i = 0; i < segmentL.length(); i++) {
-			JSONObject subList = segmentL.getJSONObject(i);
-			getSegment(subList, segments, subList.toString().substring(2, 3), points);
+		for(int i = 0; i < segmentList.length(); i++) {
+			JSONObject subList = segmentList.getJSONObject(i);
+			getSegment(subList, outPut, points);
 		}
 
-		return segments;
+		return outPut;
 	}
 
 	/**
@@ -123,16 +118,17 @@ public class JSONParser
 	 * JSONObject segment and adds them to inputed SegmentNodeDatabase.
 	 * @param segment: Object that value stores the JSONArray of points
 	 * @param output: The SegmentNodeDatabase that the created segments are added too
-	 * @param headNode: The string version of the key of the object.
 	 * @param points: PointNodeDatabase that stores the points that will make up the segment
 	 * @throws NotInDatabaseException 
 	 * @throws JSONException 
 	 * @throws NullPointerException 
 	 */
-	private void getSegment(JSONObject segment, SegmentNodeDatabase output, String headNode, 
-			PointNodeDatabase points) throws NullPointerException, JSONException, NotInDatabaseException {
-		JSONArray segmentPoints = segment.getJSONArray(headNode);
-
+	private void getSegment(JSONObject segmentList, SegmentNodeDatabase output, PointNodeDatabase points) 
+			throws NullPointerException, JSONException, NotInDatabaseException {
+		
+		String headNode = segmentList.toString().substring(2, 3);
+	JSONArray segmentPoints = segmentList.getJSONArray(headNode);
+		
 		for(int i = 0; i < segmentPoints.length(); i++) {
 			output.addUndirectedEdge(points.getPoint(headNode), points.getPoint(segmentPoints.getString(i)));
 		}

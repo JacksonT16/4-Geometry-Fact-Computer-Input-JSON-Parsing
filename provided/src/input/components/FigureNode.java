@@ -1,7 +1,4 @@
 package input.components;
-import java.util.Set;
-
-import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
 
@@ -32,11 +29,15 @@ public class FigureNode implements ComponentNode
 	 * Recursively creates a format that matches the provided JSON format.
 	 * @param sb: String builder that the unparse adds too
 	 * @param level: the level of indentation 
+	 * @exception IllegalArgumentException
 	 */
 	@Override
-    public void unparse(StringBuilder sb, int level) {
-		appendIndented(sb, level, "Figure");
+    public void unparse(StringBuilder sb, int level) throws IllegalArgumentException{
+		if(level < 0) throw new IllegalArgumentException("level is negtive number");
+		
+		appendIndented(sb, level, "Figure:");
 		++level;
+		
 		appendIndented(sb, level, "Description : \"" + _description + "\"");
 		
 		//adds points to point node database
