@@ -1,6 +1,7 @@
 package input.components;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
+import utilities.io.StringUtilities;
 
 /**
  * A basic figure consists of points, segments, and an optional description
@@ -60,9 +61,7 @@ public class FigureNode implements ComponentNode
 	 * @param content: string that is added after indentation
 	 */
     private void appendIndented(StringBuilder sb, int level, String content) {
-        for (int i = 0; i < level; i++) {
-            sb.append("\t");
-        }
+    	sb.append(StringUtilities.indent(level));
         sb.append(content + "\n");
     }
 }

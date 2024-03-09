@@ -10,6 +10,7 @@ import java.util.Set;
 
 import input.components.ComponentNode;
 import input.components.point.PointNode;
+import utilities.io.StringUtilities;
 
 /**
  * Database base of segment nodes
@@ -128,7 +129,7 @@ public class SegmentNodeDatabase implements ComponentNode{
 
 		for(PointNode key: keys) {
 			
-			indent(sb,level);
+			sb.append(StringUtilities.indent(level));
 			sb.append(key.getName() +": ");
 
 			for(PointNode value: _adjLists.get(key)) {
@@ -136,17 +137,6 @@ public class SegmentNodeDatabase implements ComponentNode{
 			}
 
 			sb.append("\n");
-		}
-	}
-
-	/**
-	 * Indents the string builder to the  level  
-	 * @param sb: String builder that is indented.
-	 * @param level: level of indentation 
-	 */
-	private void indent(StringBuilder sb, int level) {
-		for (int i = 0; i < level; i++) {
-			sb.append("\t");
 		}
 	}
 }

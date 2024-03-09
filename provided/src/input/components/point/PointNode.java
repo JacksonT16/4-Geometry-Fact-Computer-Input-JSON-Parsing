@@ -1,5 +1,6 @@
 package input.components.point;
 import input.components.ComponentNode;
+import utilities.io.StringUtilities;
 import utilities.math.MathUtilities;
 
 /**
@@ -84,9 +85,7 @@ public class PointNode implements ComponentNode
 	public void unparse(StringBuilder sb, int level) throws IllegalArgumentException {
 		if(level < 0) throw new IllegalArgumentException("level is negtive number");
 		
-		for (int i = 0; i < level; i++) {
-            sb.append("\t");
-        }
+		sb.append(StringUtilities.indent(level));
 		
 		sb.append("Point " + toString() +"\n");
 	}
